@@ -9,6 +9,7 @@
             string aulaSets = "Trabalhando com Conjuntos";
 
             ExemploArrays();
+            ExemploList();
         }
 
         private static void ExemploArrays()
@@ -176,6 +177,63 @@
             //Também podemos acessar utilizando os métodos First (para o primeiro elemento), e o método Last (para o último elemento)
             Console.WriteLine($"A primeira aula é: {aulasExplicito.First()}");
             Console.WriteLine($"A última aula é: {aulasExplicito.Last()}");
+
+            //Podemos alterar o valor de um elemento de uma posição em específico, podemos utilizar a mesma lógica do Array:
+            aulasExplicito[0] = "Trabalhando com listas";
+            Console.WriteLine("Aulas após alterar a primeira posição:");
+            ImprimirElementosList(aulasExplicito);
+
+            //Se desejamos buscar o primeiro elemento cujo seu valor contenha a palavra "Trabalhando",
+            //utilizamos o método First, passando uma expressão Lambda como parâmetro
+            Console.WriteLine($"A primeira aula 'Trabalhando' é: {aulasExplicito.First(aula => aula.Contains("Trabalhando"))}");
+            //Para pegarmos o último, trocamos o First, pelo Last
+            Console.WriteLine($"A última aula 'Trabalhando' é: {aulasExplicito.Last(aula => aula.Contains("Trabalhando"))}");
+            //Se desejamos buscar um elemento, na qual não sabemos se o valor existe na List, podemos utilizar os métodos <nome>OrDefault,
+            //Como o FirstOrDefault, para buscar o primeiro, caso ele não encontre o valor, ele irá retornar o valor default para aquele tipo,
+            //no caso das strings, o valor defaul é null
+            Console.WriteLine($"A primeira aula 'Conclusão' é: {aulasExplicito.FirstOrDefault(aula => aula.Contains("Conclusão"))}");
+
+            //Se desejamos revertar a ordem da nossa List (o primeiro vai ser o último, o último vai ser o primeiro, e assim por diante),
+            //utilizamos o método Reverse
+            aulasExplicito.Reverse();
+            Console.WriteLine("Depois de usar o Reverse:");
+            ImprimirElementosList(aulasExplicito);
+            //Podemos utilizar o Reverse novamente para voltar a ordem original:
+            aulasExplicito.Reverse();
+            Console.WriteLine("Usando o Reverse novamente para voltar a ordem anterior:");
+            ImprimirElementosList(aulasExplicito);
+
+            //Se desejamos remover o último elemento, utilizamos o método Remove:
+            aulasExplicito.RemoveAt(aulasExplicito.Count - 1);
+            Console.WriteLine("Usando o RemoveAt para remover o último elemento da List:");
+            ImprimirElementosList(aulasExplicito);
+
+            //Adicionando um novo elemento
+            aulasExplicito.Add("Conclusão");
+            Console.WriteLine("Usando o Add para adicionar a aula 'Conclusão'");
+            ImprimirElementosList(aulasExplicito);
+
+            //Se desejamos ordenar nossos elementos em ordem alfabética, utilizamos o método Sort
+            aulasExplicito.Sort();
+            Console.WriteLine("Depois de utilizar o método Sort para colocar em ordem alfabética:");
+            ImprimirElementosList(aulasExplicito);
+
+            //Se desejamos copiar certos elementos de uma List, utilizaremos o método GetRange,
+            //passando por parâmetro a partir qual posição desejamos iniciar a cópia, e depois quantas posições queremos copiar
+            List<string> copia = aulasExplicito.GetRange(aulasExplicito.Count - 2, 2);
+            Console.WriteLine("Depois de utilziar o GetRange para pegar as duas últimas posições, e atribuir para a copia:");
+            ImprimirElementosList(copia);
+
+            //Se desejamos clonar a nossa List, podemos utilizar o construtor que recebe por parâmetro uma List:
+            List<string> clone = new List<string>(aulasExplicito);
+            Console.WriteLine("Depois de utilizar o construtor passando uma List por parâmetro para criar um clone:");
+            ImprimirElementosList(clone);
+
+            //Se desejamos remover os 2 últimos elementos de nossa List, podemos utilizar o RemoveRange,
+            //passando por parâmetro a posição inicial da remoção, e quantos elementos desejamos remover
+            clone.RemoveRange(clone.Count - 2, 2);
+            Console.WriteLine("Depois de utilizar o RemoveRange para remover os dois últimos elementos da nossa List:");
+            ImprimirElementosList(clone);
         }
 
         private static void ImprimirIndicesArray(string[] aulas)
