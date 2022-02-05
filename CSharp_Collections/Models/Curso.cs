@@ -1,0 +1,41 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CSharp_Collections.Models
+{
+    internal class Curso
+    {
+        private IList<Aula> _aulas;
+        private string _nome;
+        private string _instrutor;
+        public IList<Aula> Aulas
+        {
+            get { return new ReadOnlyCollection<Aula>(_aulas); }
+        }
+        public string Nome
+        {
+            get { return _nome; }
+            set { _nome = value; }
+        }
+        public string Instrutor
+        {
+            get { return _instrutor; }
+            set { _instrutor = value; }
+        }
+        public Curso(string nome, string instrutor)
+        {
+            _nome = nome;
+            _instrutor = instrutor;
+            _aulas = new List<Aula>();
+        }
+
+        internal void AdicionaAula(Aula aula)
+        {
+            this._aulas.Add(aula);
+        }
+    }
+}

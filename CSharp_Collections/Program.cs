@@ -1,4 +1,6 @@
-﻿namespace CSharp_Collections
+﻿using CSharp_Collections.Models;
+
+namespace CSharp_Collections
 {
     class Program
     {
@@ -11,6 +13,7 @@
             ExemploArrays();
             ExemploList();
             ExemploListDeObjetos();
+            ExemploListReadOnly();
         }
 
         private static void ExemploArrays()
@@ -265,6 +268,14 @@
             Console.WriteLine("Depois de utilizar o Sort passando uma comparação por parâmetro para ordenar por tempo:");
             ImprimirElementosListDeObjetos(aulas);
         }
+        private static void ExemploListReadOnly()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Início do ExemploListReadOnly:");
+            var csharpColecoes = new Curso("C# Collections", "Marcelo Oliveira");
+            csharpColecoes.AdicionaAula(new Aula("Trabalhando com Listas", 21));
+            ImprimirElementosListReadOnly(csharpColecoes.Aulas);
+        }
 
         private static void ImprimirElementosListDeObjetos(List<Aula> aulas)
         {
@@ -321,33 +332,14 @@
                 Console.WriteLine(aula);
             });
         }
-    }
-    class Aula : IComparable
-    {
-        private string _titulo;
-        private int _tempo;
-        public string Titulo { get => _titulo; set => _titulo = value; }
-        public int Tempo { get => _tempo; set => _tempo = value; }
-
-        public Aula(string titulo, int tempo)
+        private static void ImprimirElementosListReadOnly(IList<Aula> aulas)
         {
-            this._titulo = titulo;
-            this._tempo = tempo;
-        }
-        public override string ToString()
-        {
-            return $"[título: {this._titulo}, tempo: {this._tempo} minutos]";
-        }
-
-        //O método CompareTo é o método chamado pelo Sort, aqui é onde definimos como nossos elementos da Lista devem ser ordenados
-        //esse método recebe como parâmetro um objeto to tipo object, que é o mais genérico, portanto, se desejamos ordenar uma lista de Aulas,
-        //precisamos tentar converter esse object em um objeto do tipo Aula
-        public int CompareTo(object? obj)
-        {
-            //Aqui, estamos fazendo o cast de object para Aula
-            Aula that = obj as Aula;
-            //Aqui estamos utilizando o CompareTo da propriedade titulo, que é uma string, que já possui o CompareTo, portanto, comparamos um título com o outro
-            return _titulo.CompareTo(that._titulo);
+            Console.WriteLine();
+            Console.WriteLine("Início ImprimirElementosListReadOnly");
+            foreach (var aula in aulas)
+            {
+                Console.WriteLine(aula);
+            }
         }
     }
 }
