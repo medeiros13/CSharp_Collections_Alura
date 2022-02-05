@@ -26,16 +26,29 @@ namespace CSharp_Collections.Models
             get { return _instrutor; }
             set { _instrutor = value; }
         }
+        public int TempoTotal
+        {
+            get
+            {
+                //LINQ = Language Integrated Query
+                //Consulta Integrada à Linguagem
+
+                return _aulas.Sum(aula => aula.Tempo);
+            }
+        }
         public Curso(string nome, string instrutor)
         {
             _nome = nome;
             _instrutor = instrutor;
             _aulas = new List<Aula>();
         }
-
         internal void AdicionaAula(Aula aula)
         {
             this._aulas.Add(aula);
+        }
+        public override string ToString()
+        {
+            return $"Curso: {_nome}, Tempo: {TempoTotal}, Aulas: {string.Join(",", _aulas)}";
         }
     }
 }
