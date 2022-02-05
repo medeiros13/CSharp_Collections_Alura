@@ -10,6 +10,7 @@
 
             ExemploArrays();
             ExemploList();
+            ExemploListDeObjetos();
         }
 
         private static void ExemploArrays()
@@ -235,7 +236,46 @@
             Console.WriteLine("Depois de utilizar o RemoveRange para remover os dois últimos elementos da nossa List:");
             ImprimirElementosList(clone);
         }
+        private static void ExemploListDeObjetos()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Início do exemplo com List de Objetos: ");
+            var aulaIntro = new Aula("Introdução às Coleções", 20);
+            var aulaModelando = new Aula("Modelando a Classe Aula", 18);
+            var aulaSets = new Aula("Trabalhando com Conjuntos", 16);
 
+            List<Aula> aulas = new List<Aula>()
+            {
+                aulaIntro,
+                aulaModelando,
+                aulaSets
+            };
+            ImprimirElementosListDeObjetos(aulas);
+
+            //Iremos utilizar o método Sort para ordenar a nossa List de Aulas
+            //Se tentarmos dar um Sort em algum tipo que não implementa a interface IComparable, o sistema irá lançar uma exceção,
+            //Portanto, precisamos implementar essa interface em nossa classe Aula
+            aulas.Sort();
+            ImprimirElementosListDeObjetos(aulas);
+
+            //Podemos também sobrescrever o CompareTo definido na classe Aula, para alterarmos a forma como nossa List será ordenada,
+            //Para isso, iremos passar uma expressão Lambda por parâmetro para o método Sort
+            //neste caso, estamos comparando a propriedade Tempo, a List será ordenada por essa propriedade
+            aulas.Sort((este, outro) => este.Tempo.CompareTo(outro.Tempo));
+            Console.WriteLine("Depois de utilizar o Sort passando uma comparação por parâmetro para ordenar por tempo:");
+            ImprimirElementosListDeObjetos(aulas);
+        }
+
+        private static void ImprimirElementosListDeObjetos(List<Aula> aulas)
+        {
+            //Se tentarmos imprimir a nossa List de objetos da forma como era feito com List de string, o console vai mostrar o tipo de Objeto
+            //Isso acontece porquê o Console.WriteLine chama o método ToString da classe, e como o ToString default é para mostrar o tipo de Objeto,
+            //Precisamos sobrescrever o ToString dentro da classe Aula
+            foreach (var aula in aulas)
+            {
+                Console.WriteLine(aula);
+            }
+        }
         private static void ImprimirIndicesArray(string[] aulas)
         {
             //Se queremos imprimir os valores de cada índice do array, precisamos percorrer ele e printar cada índice:
@@ -280,6 +320,34 @@
             {
                 Console.WriteLine(aula);
             });
+        }
+    }
+    class Aula : IComparable
+    {
+        private string _titulo;
+        private int _tempo;
+        public string Titulo { get => _titulo; set => _titulo = value; }
+        public int Tempo { get => _tempo; set => _tempo = value; }
+
+        public Aula(string titulo, int tempo)
+        {
+            this._titulo = titulo;
+            this._tempo = tempo;
+        }
+        public override string ToString()
+        {
+            return $"[título: {this._titulo}, tempo: {this._tempo} minutos]";
+        }
+
+        //O método CompareTo é o método chamado pelo Sort, aqui é onde definimos como nossos elementos da Lista devem ser ordenados
+        //esse método recebe como parâmetro um objeto to tipo object, que é o mais genérico, portanto, se desejamos ordenar uma lista de Aulas,
+        //precisamos tentar converter esse object em um objeto do tipo Aula
+        public int CompareTo(object? obj)
+        {
+            //Aqui, estamos fazendo o cast de object para Aula
+            Aula that = obj as Aula;
+            //Aqui estamos utilizando o CompareTo da propriedade titulo, que é uma string, que já possui o CompareTo, portanto, comparamos um título com o outro
+            return _titulo.CompareTo(that._titulo);
         }
     }
 }
