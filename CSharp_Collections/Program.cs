@@ -274,7 +274,37 @@ namespace CSharp_Collections
             Console.WriteLine("Início do ExemploListReadOnly:");
             var csharpColecoes = new Curso("C# Collections", "Marcelo Oliveira");
             csharpColecoes.AdicionaAula(new Aula("Trabalhando com Listas", 21));
+            Console.WriteLine();
+            Console.WriteLine("Depois de adicionar uma aula:");
             ImprimirElementosListReadOnly(csharpColecoes.Aulas);
+            //Adicionaremos 2 aulas
+            csharpColecoes.AdicionaAula(new Aula("Criando uma Aula", 20));
+            csharpColecoes.AdicionaAula(new Aula("Modelando com Coleções", 19));
+            //Imprimir
+            Console.WriteLine();
+            Console.WriteLine("Depois de adicionar 2 aulas:");
+            ImprimirElementosListReadOnly(csharpColecoes.Aulas);
+
+            //Copiar a lista para outra lista
+            var aulasCopiadas = new List<Aula>(csharpColecoes.Aulas);
+
+            //Ordenar a cópia
+            aulasCopiadas.Sort();
+
+            //Imprimir
+            Console.WriteLine();
+            Console.WriteLine("Depois de copiar as Aulas e ordenar a cópia:");
+            ImprimirElementosListReadOnly(aulasCopiadas);
+
+            //Totalizar o tempo do curso
+            Console.WriteLine();
+            Console.WriteLine("Depois de calcular o tempo total do curso:");
+            Console.WriteLine(csharpColecoes.TempoTotal);
+
+            //Imprimir os detalhes do curso
+            Console.WriteLine();
+            Console.WriteLine("Imprimindo os detalhes do curso:");
+            Console.WriteLine(csharpColecoes);
         }
 
         private static void ImprimirElementosListDeObjetos(List<Aula> aulas)
