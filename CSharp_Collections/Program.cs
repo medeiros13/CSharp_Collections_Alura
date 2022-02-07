@@ -14,8 +14,8 @@ namespace CSharp_Collections
             ExemploList();
             ExemploListDeObjetos();
             ExemploListReadOnly();
+            ExemploSets();
         }
-
         private static void ExemploArrays()
         {
             Console.WriteLine();
@@ -137,7 +137,6 @@ namespace CSharp_Collections
             Array.Clear(clone, 1, 2);
             ImprimirIndicesArray(clone);
         }
-
         private static void ExemploList()
         {
             Console.WriteLine();
@@ -307,6 +306,62 @@ namespace CSharp_Collections
             Console.WriteLine(csharpColecoes);
         }
 
+        private static void ExemploSets()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Início ExemploSets");
+            //SETS = CONJUNTOS
+            //Duas propriedades do Set:
+            //1) Não permite duplicidade
+            //2) Os elementos não são mantidos em uma ordem específica
+
+            //declarando set de alunos
+            ISet<string> alunos = new HashSet<string>();
+
+            //adicionando: vanessa, ana e rafael:
+            alunos.Add("Vanessa");
+            alunos.Add("Ana");
+            alunos.Add("Rafael");
+
+            //Imprimindo
+            Console.WriteLine("Imprimindo os elementos do Set de Alunos separados por vírgula utilizando o string.Join:");
+            Console.WriteLine(string.Join(", ", alunos));
+
+            //Adicionando: Priscila, Rollo e Fábio
+            alunos.Add("Priscilla");
+            alunos.Add("Rollo");
+            alunos.Add("Fábio");
+            Console.WriteLine("Depois de adicionar mais 3 alunos:");
+            Console.WriteLine(string.Join(", ", alunos));
+            //Qual a diferença de um Set para uma List?
+            //O conjunto não garante qual posição o elemento adicionado vai ocupar
+            //Por exemplo, se você remover um aluno, e adicionar outro, nas Lists, o aluno adicionado ficaria na última posição
+            //Mas nos Sets, esse aluno irá ocupar a posição do aluno que foi removido anteriormente, como no exemplo abaixo:
+            //Removendo Ana e adicionando Marcelo
+            alunos.Remove("Ana");
+            alunos.Add("Marcelo");
+
+            //Imprimindo de novo
+            Console.WriteLine("Depois de remover a Ana e adicionar o Marcelo:");
+            Console.WriteLine(string.Join(", ", alunos));
+
+            //Adicionar um aluno que já existe
+            alunos.Add("Fábio");
+            Console.WriteLine("Depois de adicionar o Fábio uma segunda vez:");
+            Console.WriteLine(string.Join(", ", alunos));
+
+            //Qual a vantagem de utilizar o Set e não uma Lista?
+            //O Set é mais rápido que uma lista quando queremos buscar elementos dentro deles,
+            //Na List, quanto mais elementos existirem dentro dela, maior será o tempo de busca,
+            //Enquanto que nos conjuntos, esse tempo não varia tanto
+            //desempenho Set x List: o Set possui uma grande escalabilidade, enquanto que a List consome menos memória que o Set
+
+            //Quando precisamos ordenar os elementos do Set, temos que copiar os elementos dele para uma List, pois ele não possui o método Sort
+            var alunosEmLista = new List<string>(alunos);
+            alunosEmLista.Sort();
+            Console.WriteLine("Depois de copiar os valores do Set para uma List, e ordenar a List em Ordem Alfabética:");
+            Console.WriteLine(string.Join(", ", alunosEmLista));
+        }
         private static void ImprimirElementosListDeObjetos(List<Aula> aulas)
         {
             //Se tentarmos imprimir a nossa List de objetos da forma como era feito com List de string, o console vai mostrar o tipo de Objeto
