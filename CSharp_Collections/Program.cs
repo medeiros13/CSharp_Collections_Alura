@@ -399,6 +399,20 @@ namespace CSharp_Collections
             {
                 Console.WriteLine(aluno);
             }
+
+            //Imprimir: "O aluno Vanessa está matriculado?"
+            Console.WriteLine($"O aluno {vanessa.Nome} está matriculado?");
+            //Criar um método EstaMatriculado
+            Console.WriteLine(csharpColecoes.EstaMatriculado(vanessa));
+            //Vamos instanciar uma aluna (Vanessa)
+            Aluno vanessa2 = new Aluno("Vanessa", 34672);
+            Console.WriteLine($"O aluno {vanessa2.Nome} está matriculado? {csharpColecoes.EstaMatriculado(vanessa2)}");
+            //O método retornou falso pois vanessa e vanessa2 são objetos diferentes na memória,
+            //apesar de conterem os mesmos valores para as propriedades
+            Console.WriteLine($"{nameof(vanessa)} == {nameof(vanessa2)}? {vanessa == vanessa2}");
+            Console.WriteLine($"{nameof(vanessa)} é equals a {nameof(vanessa2)}? {vanessa.Equals(vanessa2)}");
+            //Como sobrescrevemos o método Equals na classe Aluno,
+            //ele retornou true pois definimos que para 2 alunos serem iguais, eles devem conter o mesmo nome e mesmo número de matrícula
         }
         private static void ImprimirElementosListDeObjetos(List<Aula> aulas)
         {

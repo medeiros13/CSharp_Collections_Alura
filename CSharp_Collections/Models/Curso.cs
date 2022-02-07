@@ -65,5 +65,11 @@ namespace CSharp_Collections.Models
         {
             _alunos.Add(aluno);
         }
+
+        public bool EstaMatriculado(Aluno aluno)
+        {
+            //Para sabermos se um elemento existe dentro do Set, utilizamos o método Contains
+            return _alunos.Contains(aluno);
+        }
     }
 }
