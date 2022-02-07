@@ -15,6 +15,7 @@ namespace CSharp_Collections
             ExemploListDeObjetos();
             ExemploListReadOnly();
             ExemploSets();
+            ExemploSetsComModels();
         }
         private static void ExemploArrays()
         {
@@ -361,6 +362,43 @@ namespace CSharp_Collections
             alunosEmLista.Sort();
             Console.WriteLine("Depois de copiar os valores do Set para uma List, e ordenar a List em Ordem Alfabética:");
             Console.WriteLine(string.Join(", ", alunosEmLista));
+        }
+
+        private static void ExemploSetsComModels()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Início exemplo Sets dentro do Modelo:");
+            //Vamos declarar o nosso curso
+            Curso csharpColecoes = new Curso("C# Coleções", "Marcelo Oliveira");
+            //e adicionar 3 aulas a esse curso:
+            //Trabalhando com Listas - 21 minutos;
+            //Criando uma Aula - 20 minutos;
+            //Modelando com Coleções - 24 minutos;
+            csharpColecoes.AdicionaAula(new Aula("Trabalhando com Listas", 21));
+            csharpColecoes.AdicionaAula(new Aula("Criando uma Aula", 20));
+            csharpColecoes.AdicionaAula(new Aula("Modelando com Coleções", 24));
+            //um aluno também tem matrícula!
+            //vamos criar a class Aluno com Nome e NumeroMatricula
+
+            //Instanciando 3 alunos com suas matrículas:
+            //Vanessa - 34672
+            //Ana - 5617
+            //Rafael - 17645
+            Aluno vanessa = new Aluno("Vanessa", 34672);
+            Aluno ana = new Aluno("Ana", 5617);
+            Aluno rafael = new Aluno("Rafael", 17645);
+
+            //Precisamos matricular os alunos no curso, criando um método
+            csharpColecoes.Matricula(vanessa);
+            csharpColecoes.Matricula(ana);
+            csharpColecoes.Matricula(rafael);
+
+            //Imprimir os alunos que foram matriculados
+            Console.WriteLine("Imprimindo os alunos matriculados");
+            foreach (var aluno in csharpColecoes.Alunos)
+            {
+                Console.WriteLine(aluno);
+            }
         }
         private static void ImprimirElementosListDeObjetos(List<Aula> aulas)
         {

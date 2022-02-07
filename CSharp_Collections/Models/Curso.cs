@@ -9,6 +9,16 @@ namespace CSharp_Collections.Models
 {
     internal class Curso
     {
+        //_alunos deve ser um ISet. Alunos deve retornar ReadOnlyCollection
+        private ISet<Aluno> _alunos = new HashSet<Aluno>();
+        public IList<Aluno> Alunos
+        {
+            get
+            {
+                return new ReadOnlyCollection<Aluno>(_alunos.ToList());
+            }
+        }
+
         private IList<Aula> _aulas;
         private string _nome;
         private string _instrutor;
@@ -49,6 +59,11 @@ namespace CSharp_Collections.Models
         public override string ToString()
         {
             return $"Curso: {_nome}, Tempo: {TempoTotal}, Aulas: {string.Join(",", _aulas)}";
+        }
+
+        internal void Matricula(Aluno aluno)
+        {
+            _alunos.Add(aluno);
         }
     }
 }
