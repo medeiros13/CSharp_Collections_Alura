@@ -85,5 +85,10 @@ namespace CSharp_Collections.Models
             dicionarioAlunos.TryGetValue(numeroMatricula, out aluno);
             return aluno;
         }
+
+        internal void SubstituiAluno(Aluno aluno)
+        {
+            dicionarioAlunos[aluno.NumeroMatricula] = aluno;
+        }
     }
 }
