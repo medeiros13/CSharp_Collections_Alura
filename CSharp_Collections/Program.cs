@@ -16,6 +16,7 @@ namespace CSharp_Collections
             ExemploListReadOnly();
             ExemploSets();
             ExemploSetsComModels();
+            ExemploDictionary();
         }
         private static void ExemploArrays()
         {
@@ -306,7 +307,6 @@ namespace CSharp_Collections
             Console.WriteLine("Imprimindo os detalhes do curso:");
             Console.WriteLine(csharpColecoes);
         }
-
         private static void ExemploSets()
         {
             Console.WriteLine();
@@ -363,7 +363,6 @@ namespace CSharp_Collections
             Console.WriteLine("Depois de copiar os valores do Set para uma List, e ordenar a List em Ordem Alfabética:");
             Console.WriteLine(string.Join(", ", alunosEmLista));
         }
-
         private static void ExemploSetsComModels()
         {
             Console.WriteLine();
@@ -413,6 +412,38 @@ namespace CSharp_Collections
             Console.WriteLine($"{nameof(vanessa)} é equals a {nameof(vanessa2)}? {vanessa.Equals(vanessa2)}");
             //Como sobrescrevemos o método Equals na classe Aluno,
             //ele retornou true pois definimos que para 2 alunos serem iguais, eles devem conter o mesmo nome e mesmo número de matrícula
+        }
+        private static void ExemploDictionary()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Início do Exemplo Dictionary:");
+            Console.WriteLine();
+            Curso csharpColecoes = new Curso("C# Coleções", "Marcelo Oliveira");
+            csharpColecoes.AdicionaAula(new Aula("Trabalhando com Listas", 21));
+            csharpColecoes.AdicionaAula(new Aula("Criando uma Aula", 20));
+            csharpColecoes.AdicionaAula(new Aula("Modelando com Coleções", 24));
+            Aluno vanessa = new Aluno("Vanessa", 34672);
+            Aluno ana = new Aluno("Ana", 5617);
+            Aluno rafael = new Aluno("Rafael", 17645);
+            csharpColecoes.Matricula(vanessa);
+            csharpColecoes.Matricula(ana);
+            csharpColecoes.Matricula(rafael);
+            //Já temos método para saber se o aluno está matriculado.
+            //Mas agora precisamos buscar aluno por número de matrícula
+            //pergunta: "Quem é o aluno com matrícula 5617?"
+            Console.WriteLine("Quem é o aluno com matrícula 5617?");
+            //implementando Curso.BuscaMatriculado
+            Aluno aluno5617 = csharpColecoes.BuscaMatriculado(5617);
+            Console.WriteLine($"aluno5617: {aluno5617}");
+            //Funciona! Mas essa busca é eficiente?
+            //Introduzindo uma nova coleção: dicionário
+            //Um dicionário permite associar uma chave (no caso, matrícula)
+            //a um valor (o aluno)
+            //Vamos implementar um dicionário de alunos em Curso
+
+            //Quem é o aluno 5618? (não existe no dicionário)
+            Console.WriteLine("Quem é o aluno 5618?");
+            Console.WriteLine(csharpColecoes.BuscaMatriculado(5618));
         }
         private static void ImprimirElementosListDeObjetos(List<Aula> aulas)
         {

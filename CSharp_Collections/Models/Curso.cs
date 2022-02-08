@@ -9,6 +9,9 @@ namespace CSharp_Collections.Models
 {
     internal class Curso
     {
+        //implementando um dicionário de alunos
+        private IDictionary<int, Aluno> dicionarioAlunos = new Dictionary<int, Aluno>();
+
         //_alunos deve ser um ISet. Alunos deve retornar ReadOnlyCollection
         private ISet<Aluno> _alunos = new HashSet<Aluno>();
         public IList<Aluno> Alunos
@@ -64,12 +67,23 @@ namespace CSharp_Collections.Models
         internal void Matricula(Aluno aluno)
         {
             _alunos.Add(aluno);
+            dicionarioAlunos.Add(aluno.NumeroMatricula, aluno);
         }
 
         public bool EstaMatriculado(Aluno aluno)
         {
             //Para sabermos se um elemento existe dentro do Set, utilizamos o método Contains
             return _alunos.Contains(aluno);
+        }
+
+        internal Aluno BuscaMatriculado(int numeroMatricula)
+        {
+            Aluno aluno = null;
+            //Para fazermos uma busca segura no Dictionary, utilizamos o método TryGetValue, passando por parâmetro a chave,
+            //e o valor que deve ser retornado, caso o TryGetValue não encontre o valor, ele mantém o valor anterior para a variável
+            //OBS: no nosso caso, como "aluno" é null, como ele não encontrou no Dictionary, ele mantém o valor null anterior, isso é uma boa prática
+            dicionarioAlunos.TryGetValue(numeroMatricula, out aluno);
+            return aluno;
         }
     }
 }
