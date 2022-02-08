@@ -444,6 +444,20 @@ namespace CSharp_Collections
             //Quem é o aluno 5618? (não existe no dicionário)
             Console.WriteLine("Quem é o aluno 5618?");
             Console.WriteLine(csharpColecoes.BuscaMatriculado(5618));
+
+            //E se tentarmos adicionar um outro aluno com a mesma chave 5617??
+            Aluno fabio = new Aluno("Fabio", 5617);
+            //csharpColecoes.Matricula(fabio);
+            //A linha acima vai dar erro pois o Dictionary não permite que seja adicionado um valor novo para uma chave existente
+            //E se quisermos trocar o aluno que tem a mesma chave?
+            csharpColecoes.SubstituiAluno(fabio);
+            Console.WriteLine("Quem é o aluno com matrícula 5617?");
+            Console.WriteLine(csharpColecoes.BuscaMatriculado(5617));
+
+            //Como um dicionário armazena os valores (diagrama)
+            //O dicionário utiliza o código de dispersão assim como os conjuntos,
+            //Porém ele grava o HashCode da chave do elemento (no nosso caso ele está guardando o HashCode do numeroMatricula)
+            //Por conta dos elementos no Dictionary possuírem uma única chave, seus GetHashCode nativos são confiáveis, enquanto que os dos conjuntos não.
         }
         private static void ImprimirElementosListDeObjetos(List<Aula> aulas)
         {
