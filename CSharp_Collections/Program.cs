@@ -18,6 +18,7 @@ namespace CSharp_Collections
             ExemploSetsComModels();
             ExemploDictionary();
             ExemploLinkedList();
+            ExemploStacks();
         }
         private static void ExemploArrays()
         {
@@ -563,6 +564,21 @@ namespace CSharp_Collections
             {
                 Console.WriteLine(dia);
             }
+        }
+        private static void ExemploStacks()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Início ExemploStacks");
+            var navegador = new Navegador();
+            navegador.NavegarPara("google.com");
+            navegador.NavegarPara("caelum.com.br");
+            navegador.NavegarPara("alura.com.br");
+            navegador.Anterior();
+            navegador.Anterior();
+            navegador.Anterior();
+            navegador.Anterior();
+            navegador.Proximo();
+            navegador.Proximo();
         }
         private static void ImprimirElementosListDeObjetos(List<Aula> aulas)
         {
