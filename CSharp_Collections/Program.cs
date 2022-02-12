@@ -17,6 +17,7 @@ namespace CSharp_Collections
             ExemploSets();
             ExemploSetsComModels();
             ExemploDictionary();
+            ExemploLinkedList();
         }
         private static void ExemploArrays()
         {
@@ -458,6 +459,110 @@ namespace CSharp_Collections
             //O dicionário utiliza o código de dispersão assim como os conjuntos,
             //Porém ele grava o HashCode da chave do elemento (no nosso caso ele está guardando o HashCode do numeroMatricula)
             //Por conta dos elementos no Dictionary possuírem uma única chave, seus GetHashCode nativos são confiáveis, enquanto que os dos conjuntos não.
+        }
+        private static void ExemploLinkedList()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Início do ExemploLinkedList:");
+            //Adicionar um elemento ao final de uma List é rápido
+            //Porém inserir no meio da lista exige mais esforço computacional
+            //Por exemplo, suponhamos que você deseja inserir um objeto na List na segunda posição
+            //Antes de inserir, a List vai ter que mover os objetos a partir da segunda posição, uma posição a frente:
+            //O segundo vira o terceiro, o terceiro vira o quarto e por assim vai...
+            //E isso exige um grande esforço computacional, imagine se essa List tivesse 1000 registros e você quer inserir na segunda posição!!!
+            //Esse problema também acontece se queremos remover um objeto de uma determinada posição na List:
+            //A lista tem 100 posições, e queremos excluir o conteúdo da 2 posição, depois de fazer a exclusão,
+            //a lista vai ter que mover todos os objetos da posição 3 até a 100 uma posição para trás.
+            //Quanto maior a lista, maior o tempo de processamento e o esforço necessário.
+            //Portanto, qual a coleção mais apropriada para inserção/remoção rápida?
+
+            //É a LISTA LIGADA (LINKED LIST):
+            //Os elementos de uma Lista Ligada não precisam estar em sequência em memória
+            //Cada elemento sabe quem é o anterior e quem é o próximo
+            //Cada elemento é um "nó"(node) que contém um valor
+
+            //Como a ordem das Listas Ligadas é mantida? Usando ponteiros
+
+            //Instanciando uma nova lista ligada: dias da semana:
+            //OBS: A LinkedList não pode ser instanciada com elementos iniciais já na sua declaração como ocorre com as outras collections!!
+            LinkedList<string> diasDaSemana = new LinkedList<string>();
+            //Adicionando um dia qualquer: "quarta"
+            //Para adicionarmos o primeiro elemento de uma LinkedList,
+            //utilizamos o método AddFirst, passando por parâmetro o valor que o elemento irá receber
+            //O método AddFirst retorna um LinkedListNode, que é o "nó".
+            var quarta_feira = diasDaSemana.AddFirst("quarta");
+            //Como está a nossa LinkedList?
+            //Desenho:
+            // quarta_feira
+            //"quarta" é o primeiro elemento da lista ligada
+            //cada elemento é um nó, ou seja, ele armazena o tipo LinkedListNode<T>.
+            //E como fazemos para acessar o valor "quarta"? Utilizamos o quarta_feira.value
+            Console.WriteLine($"quarta_feira.Value: {quarta_feira.Value}");
+            //E como adicionamos mais itens na LinkedList?
+            //Bom a LinkedList não possui método Add, portanto, podemos adicionar um elemento na LinkedList de 4 formas:
+            //1. Como primeiro nó - método AddFirst();
+            //2. Como último nó - método AddLast();
+            //3. Antes de um nó conhecido - método AddBefore();
+            //4. Depois de um nó conhecido - método AddAfter();
+
+            //Vamos adicionar "segunda", antes da "quarta":
+            var segunda_feira = diasDaSemana.AddBefore(quarta_feira, "segunda");
+            //Como está a nossa LinkedList?
+            //Desenho:
+            // segunda_feira <--> quarta_feira
+            //Agora quarta_feira e segunda_feira estão ligados!
+            //E como fazemos para pegar o próximo nó a partir do nó quarta_feira?
+            //Utilizando o método Next();
+            //- quarta_feira.Next é igual a segunda_feira
+            //E para pegar o anterior, utilizamos o método Previous();
+            //Vamos adicionar terça depois de segunda:
+            var terca_feira = diasDaSemana.AddAfter(segunda_feira, "terça");
+            //Como está a nossa LinkedList?
+            //Desenho:
+            // segunda_feira <--> terca_feira <--> quarta_feira
+            //Vamos adicionar sexta depois de quarta:
+            var sexta_feira = diasDaSemana.AddAfter(quarta_feira, "sexta");
+            //Como está a nossa LinkedList?
+            //Desenho:
+            // segunda_feira <--> terca_feira <--> quarta_feira <--> sexta_feira
+            //Vamos adicionar sábado depois de sexta:
+            var sabado = diasDaSemana.AddAfter(sexta_feira, "sábado");
+            //Como está a nossa LinkedList?
+            //Desenho:
+            // segunda_feira <--> terca_feira <--> quarta_feira <--> sexta_feira <--> sabado
+            //Vamos adicionar quinta antes da sexta:
+            var quinta_feira = diasDaSemana.AddBefore(sexta_feira, "quinta");
+            //Como está a nossa LinkedList?
+            //Desenho:
+            // segunda_feira <--> terca_feira <--> quarta_feira <--> quinta_feira <--> sexta_feira <--> sabado
+            //Vamos colocar o domingo antes da segunda:
+            var domingo = diasDaSemana.AddBefore(segunda_feira, "domingo");
+            //Como está a nossa LinkedList?
+            //Desenho:
+            // domingo <--> segunda_feira <--> terca_feira <--> quarta_feira <--> quinta_feira <--> sexta_feira <--> sabado
+
+            //Agora vamos imprimir a nossa lista ligada:
+            //Utilizaremos o foreach, pois a LinkedList não dá suporte ao acesso através de índices (diasDaSemana[0] por exemplo)
+            //Por isso, podemos utilizar o foreach mas não o for!
+            Console.WriteLine();
+            foreach (var dia in diasDaSemana)
+            {
+                Console.WriteLine(dia);
+            }
+            //Como buscamos um valor na nossa LinkedList?
+            //Utilizando o método Find();
+            var valorEncontrado = diasDaSemana.Find("quarta");
+            //Porém, o LinkedList não é eficiente para buscas, não é recomendado se você precisa fazer muitas buscas
+            //Para removermos um elemento, podemos tanto:
+            //1. remover pelo valor;
+            //2. remover pela referência do LinkedListNode;
+            //diasDaSemana.Remove("quarta"); ou diasDaSemana.Remove(quarta_feira);
+            diasDaSemana.Remove("quarta");
+            Console.WriteLine();
+            foreach (var dia in diasDaSemana)
+            {
+                Console.WriteLine(dia);
+            }
         }
         private static void ImprimirElementosListDeObjetos(List<Aula> aulas)
         {
