@@ -19,6 +19,7 @@ namespace CSharp_Collections
             ExemploDictionary();
             ExemploLinkedList();
             ExemploStacks();
+            ExemploQueues();
         }
         private static void ExemploArrays()
         {
@@ -579,6 +580,95 @@ namespace CSharp_Collections
             navegador.Anterior();
             navegador.Proximo();
             navegador.Proximo();
+        }
+        private static void ExemploQueues()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Início ExemploQueues");
+            //Declaramos uma Queue da seguinte forma:
+            Queue<string> pedagio = new Queue<string>();
+            //entrou: van
+            Enfileirar(pedagio, "van");
+            //Como está a fila atualmente?
+            //Desenho:
+            // van
+            //entrou: kombi
+            Enfileirar(pedagio, "kombi");
+            //Como está a fila atualmente?
+            //Desenho:
+            // van -- kombi
+            //entrou: guincho
+            Enfileirar(pedagio, "guincho");
+            //Como está a fila atualmente?
+            //Desenho:
+            // van -- kombi -- guincho
+            //entrou: pickup
+            Enfileirar(pedagio, "pickup");
+            //Como está a fila atualmente?
+            //Desenho:
+            // van -- kombi -- guincho -- pickup
+            //OBS: As Queues implementam a prioridade FIFO(First In First Out), ou seja,
+            //o primeiro elemento inserido, deve ser o primeiro a ser removido
+
+            //Vamos agora liberar um carro do nosso pedágio:
+            Desenfileirar(pedagio);
+            //Como está a fila atualmente?
+            //Desenho:
+            // kombi -- guincho -- pickup
+            //Vamos agora liberar um carro do nosso pedágio:
+            Desenfileirar(pedagio);
+            //Como está a fila atualmente?
+            //Desenho:
+            // guincho -- pickup
+            //Vamos agora liberar um carro do nosso pedágio:
+            Desenfileirar(pedagio);
+            //Como está a fila atualmente?
+            //Desenho:
+            // pickup
+            //Vamos agora liberar um carro do nosso pedágio:
+            Desenfileirar(pedagio);
+            //Como está a fila atualmente?
+            //Desenho:
+            // 
+            //A fila está sem nenhum carro agora
+            //Se tentarmos remover mais um veículo da fila, com ela vazia:
+            Desenfileirar(pedagio);
+            //O método irá dar erro de queue empty
+        }
+        private static void Desenfileirar(Queue<string> pedagio)
+        {
+            //Para verificarmos se a fila possui algum elemento, utilizamos o método Any();
+            if (pedagio.Any())
+            {
+                //Para pegarmos um elemenento que está na fila, sem removê-lo, utilizamos o método Peek();
+                if (pedagio.Peek() == "guincho")
+                {
+                    Console.WriteLine("guincho está fazendo o pagamento.");
+                }
+                //Para remover elementos de uma Queue, utilizamos o método Dequeue();
+                //O método Dequeue retorna o elemento que está sendo removido da Queue
+                string veiculo = pedagio.Dequeue();
+                Console.WriteLine();
+                Console.WriteLine($"Saiu da fila: {veiculo}");
+                ImprimirFila(pedagio);
+            }
+        }
+        private static void Enfileirar(Queue<string> pedagio, string veiculo)
+        {
+            Console.WriteLine();
+            Console.WriteLine($"Entrou na fila: {veiculo}");
+            //Para adicionarmos um elemento na Queue, utilizamos o método Enqueue:
+            pedagio.Enqueue(veiculo);
+            ImprimirFila(pedagio);
+        }
+        private static void ImprimirFila(Queue<string> pedagio)
+        {
+            Console.WriteLine();
+            Console.WriteLine("FILA:");
+            foreach (var automovel in pedagio)
+            {
+                Console.WriteLine(automovel);
+            }
         }
         private static void ImprimirElementosListDeObjetos(List<Aula> aulas)
         {
